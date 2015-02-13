@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+
+<body>
+    <p>Here is a cross-origin ajax: </p>
+    <pre>
+   {
+        type: 'GET',
+        url: "https://www.google.com.hk/complete/search?client=hp&hl=zh-CN&sugexp=msedr&gs_rn=61&gs_ri=hp&cp=1&gs_id=9l&q=a&xhr=t",
+        data: {},
+        timeout: 5000,
+        dataType: 'json',
+        success: function(d) {
+            alert("success: "+ JSON.stringfy(d));
+            console.log(d);
+        },
+        error: function(d) {
+            alert("error")
+            console.log(d);
+        }
+    }
+    </pre>
+    <button id="jquery">Use jQuery $.ajax() to get data</button>
+    <button id="superAjax">Use chromeSuperAjax() to get data</button>
+
+    <script src='./lib/jquery.js'></script>
+    <script src='./lib/chromeSuperAjax.js'></script>
+
+    <script type="text/javascript">
+    window.onload = function() {
+        setTimeout(function() {
+            var config = {
+                type: 'GET',
+                url: "https://www.google.com.hk/complete/search?client=hp&hl=zh-CN&sugexp=msedr&gs_rn=61&gs_ri=hp&cp=1&gs_id=9l&q=a&xhr=t",
+                data: {},
+                timeout: 5000,
+                dataType: 'json',
+                success: function(d) {
+                    alert("success: " + JSON.stringify(d));
+                    console.log(d);
+                },
+                error: function(d) {
+                    alert("error: more info see console log")
+                    console.log(d);
+                }
+            };
+
+            $('#jquery').on('click', function() {
+                $.ajax(config);
+            });
+            $('#superAjax').on('click', function() {
+                ChromeSuperAjax(config);
+            });
+
+            if (ChromeSuperAjax.isInstallExtension() == false) {
+                alert("Please install https://chrome.google.com/webstore/detail/cross-origin-ajax-bridge/ohlgghdnlpdhdokcdpmbdkgofblmoboh");
+            }
+        }, 500);
+    }
+    </script>
+</body>
+
+</html>
